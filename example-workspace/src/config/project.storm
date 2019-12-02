@@ -1,0 +1,9 @@
+/*
+ * Autogenereated
+ * created on 2019-10-11
+ * This file serves as the store of project settings that are not Default Values.
+ * You can change these Values in this file via Editor 
+ * or via Eclipse Package Explorer -> <YourStormProject> -> right click -> Properties -> Storm -> Project Settings 
+ */
+ 
+define config Project extends Default

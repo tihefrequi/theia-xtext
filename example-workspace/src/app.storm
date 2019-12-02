@@ -1,0 +1,66 @@
+package my.theia.example.project {  
+    import my.theia.example.project.* 
+    
+    servicegroup backend "Simple Theia SG" persistencePrefix ST_ entities ImageCollection
+
+  	app ui "Simple Theia Ui App" default servicegroup backend {
+
+		ui Administration "Simple Theia Ui App - Administration" dashboard  {
+			.Launchpad {
+				area Admin "Admin Apps" {
+					SearchImageCollection 
+				}
+			}
+		}  
+	 
+		ui SearchImageCollection entity ImageCollection for list entityactions create  icon list {
+			.SearchList {
+				 Name(@UI.ListElement @UI.SearchTerm)
+				 Description(@UI.ListElement @UI.SearchTerm @Control.Html)
+			} 
+		}
+
+        ui ShowImage entity Image for read {
+            .ObjectPage{
+                Name
+                ImageId
+            }
+        }
+
+        ui TestUI entity Image for read{
+            .Dialog{
+                Name
+            }
+        }
+
+        ui ShowPerson entity Person for read{
+            .Dialog{
+                Name
+                Pid
+            }
+        }
+
+        ui ShowSome  entity Hund for read{
+            .Documents{
+                Name
+            }
+        }
+
+        ui ShowSomeOther  entity Haus for read{
+            .Documents{
+                
+            }
+        }  
+
+        ui Ssa entity Katze for read {
+            .EditDialog{
+                Name
+            }
+        }
+
+        ui AS entity Hund for read{
+            .Dialog
+        }
+
+	}
+}

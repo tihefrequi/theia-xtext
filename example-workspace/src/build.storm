@@ -1,0 +1,4 @@
+system LOCAL of systemtype SapCloudNeoLocal baseUrl "http://localhost:8080" credentialproviders environment,eclipsesecurestorage  config Project
+generate ServiceGroup my.theia.example.project.backend for my.theia.example.project.backend system LOCAL
+generate App my.theia.example.project.ui for my.theia.example.project.ui system LOCAL servicegroups my.theia.example.project.backend 
+

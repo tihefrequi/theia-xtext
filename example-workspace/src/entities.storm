@@ -1,0 +1,47 @@
+/*  
+ * Contains all Entity Definitions
+ */  
+package my.theia.example.project {
+ 	 import my.theia.example.project.* // Import Service Groups et al, to use them directly
+ 	 import System.Persistence.Types.* // convenience for DocumentCreatedAt,... and similar to avoid long package names
+ 	 import sap.m.* // UI5 Lib sap.m
+ 	 import sap.ui.core.*    
+
+     servicegroup backend "Information Hub" persistencePrefix RS_IP_ entities ImageCollection
+ 	  
+ 	 role THEIA_EXAMPLE_ADMIN "Has all rights to administer every aspect of the Document Store" 
+ 	 
+ 	 entity ImageCollection fields { 
+ 		 ImageCollectionId : Key 
+ 		 Name : String ( 40 ) @ UI.Required @ ENTITY.ReferenceKey 
+ 		 Description : String ( 400 ) @ UI.Required @ Control.WebContentEditor 
+ 	 }
+
+    entity Image fields { 
+ 		 ImageId : Key 
+ 		 Name : String ( 40 ) @ UI.Required @ ENTITY.ReferenceKey 
+ 	}
+
+    entity Person fields{
+        Pid : Key
+        Name : String (20) @UI.Required @ENTITY.ReferenceKey
+     }
+
+     entity Haus fields{
+         Name : Key
+         Next : Association reference Image
+     }
+
+     
+     entity Katze fields{
+         Name : Key
+         Next : Association reference Katze
+     
+     } 
+
+    entity Hund fields{
+         Name : Key
+         Next : Association reference Katze 
+     } 
+
+}
