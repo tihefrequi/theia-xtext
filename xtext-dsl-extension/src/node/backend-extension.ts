@@ -29,7 +29,7 @@ function getPort(): number | undefined {
 class DSLContribution extends BaseLanguageServerContribution {
 
     readonly id = "storm";
-    readonly name = "storm";
+    readonly name = "STORM";
 
     start(clientConnection: IConnection): void {
         let socketPort = getPort();

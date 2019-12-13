@@ -41,7 +41,21 @@ package my.theia.example.project {
 
     entity Hund fields{
          Name : Key
-         Next : Association reference Katze 
-     } 
+         Next : Association reference Haus
+     }
+
+    entity NewCrossRefsszzz fields{
+        Id: Integer
+        CField :  String
+        CField3: Boolean
+        CField4: Byte
+        TESTTESTTEST : String
+    }
+
+    entity Lexer fields{
+        Name : String
+        Id : Key
+    }
+    
 
 }

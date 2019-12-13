@@ -1,66 +1,57 @@
-package my.theia.example.project {  
-    import my.theia.example.project.* 
-    
-    servicegroup backend "Simple Theia SG" persistencePrefix ST_ entities ImageCollection
+    package my.theia.example.project {  
+        import my.theia.example.project.* 
+        
+        servicegroup backend "Simple Theia SG" persistencePrefix ST_ entities ImageCollection
 
-  	app ui "Simple Theia Ui App" default servicegroup backend {
+        app ui "Simple Theia Ui App" default servicegroup backend {
 
-		ui Administration "Simple Theia Ui App - Administration" dashboard  {
-			.Launchpad {
-				area Admin "Admin Apps" {
-					SearchImageCollection 
-				}
-			}
-		}  
-	 
-		ui SearchImageCollection entity ImageCollection for list entityactions create  icon list {
-			.SearchList {
-				 Name(@UI.ListElement @UI.SearchTerm)
-				 Description(@UI.ListElement @UI.SearchTerm @Control.Html)
-			} 
-		}
-
-        ui ShowImage entity Image for read {
-            .ObjectPage{
-                Name
-                ImageId
+            ui Administration "Simple Theia Ui App - Administration" dashboard  {
+                .Launchpad {
+                    area Admin "Admin Apps" {
+                        SearchImageCollection 
+                    }
+                }
+            }  
+        
+            ui SearchImageCollection entity ImageCollection for list entityactions create  icon list {
+                .SearchList {
+                    Name(@UI.ListElement @UI.SearchTerm)
+                    Description(@UI.ListElement @UI.SearchTerm @Control.Html)
+                } 
             }
-        }
 
-        ui TestUI entity Image for read{
-            .Dialog{
-                Name
+            ui ShowImage entity Image for read {
+                .ObjectPage{
+                    Name
+                    ImageId
+                }
             }
-        }
 
-        ui ShowPerson entity Person for read{
-            .Dialog{
-                Name
-                Pid
+            ui TestUI entity Image for read{
+                .Dialog{
+                    Name
+                }
             }
-        }
 
-        ui ShowSome  entity Hund for read{
-            .Documents{
-                Name
+            ui ShowPerson entity Person for read{
+                .Dialog{
+                    Name
+                    Pid
+                }
             }
-        }
 
-        ui ShowSomeOther  entity Haus for read{
-            .Documents{
+            ui ShowSome  entity Hund for read{
+                .Documents{
+                    Name
+                }
+            }
+            
+            ui T entity my.theia.example.project.Nein for read{
+                .Dialog{
                 
+
+                }
             }
-        }  
-
-        ui Ssa entity Katze for read {
-            .EditDialog{
-                Name
-            }
+            
         }
-
-        ui AS entity Hund for read{
-            .Dialog
-        }
-
-	}
-}
+    }
