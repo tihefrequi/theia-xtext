@@ -7,3 +7,5 @@
  */
  
 define config Project extends Default
+    formatGeneratedFiles : true
+    debugMode : true

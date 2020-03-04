@@ -45,13 +45,24 @@
                     Name
                 }
             }
-            
-            ui T entity my.theia.example.project.Nein for read{
-                .Dialog{
-                
+
+            ui ShowTheError entity Lexer for read{
+                .Tabs{
 
                 }
             }
+
+            ui ShowMeError entity my.theia.example.project.ImageCollection for read {
+                .Documents{
+                    ImageCollectionId
+                }
+            }
             
+            ui shwrrr entity PleaseThrowTheError for read {
+                .Dialog{
+                    
+                }
+
+            }
         }
     }

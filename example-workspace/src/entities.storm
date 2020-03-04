@@ -56,6 +56,30 @@ package my.theia.example.project {
         Name : String
         Id : Key
     }
+
+    entity Person2 fields{
+        id:Key
+        Name : String
+    }
+
+    entity PleaseThrowTheError fields{
+        why : String
+        is : String 
+        it : String
+        Name : String
+    }
+
+    entity Why fields{
+        thatsWHY : String
+    }
+
+    entity Resaons fields{
+        Comment : String 
+    }
     
 
+    entity CantReproduce fields{
+        Orly : Long
+    }
+     
 }
