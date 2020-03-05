@@ -5,7 +5,43 @@
  * You can change these Values in this file via Editor 
  * or via Eclipse Package Explorer -> <YourStormProject> -> right click -> Properties -> Storm -> Project Settings 
  */
- 
-define config Project extends Default
-    formatGeneratedFiles : true
-    debugMode : true
+  
+define config Project
+       debugMode : "false"
+        ui5theme : "fiori"
+        ui5BaseUrl : "https://sapui5.hana.ondemand.com/"
+        ui5version : "1.52.13"
+        formatExecTimeout : "20"
+        formatGeneratedFiles : "false"
+        templatedir : "/workspace/theia-xtext/template/templates"
+        tempdir : "C:/temp/storm"
+        google_chrome_screenshot_windowsize : "1920,1080"
+        docu_screenshot_width : "1920"
+        docu_screenshot_height : "1080"
+        screenshot_timeout : "1000"
+        nodejs_exe_path : "C:/Program Files/nodejs/node.exe"
+        npm_exe_path : "C:/test"
+        graphviz_exe_path : "C:/Program Files (x86)/Graphviz2.38/bin/dot.exe"
+        pandoc_exe_path : "C:/Users/user/AppData/Local/Pandoc/pandoc.exe"
+        pandoc_reference_doc : "C:/S/stormcore/templates/documentation/pandoc/custom-reference.docx"
+        graphviz_graph_rankdir : "LR"
+        graphviz_edge_colorscheme_size : "9"
+        graphviz_edge_penwidth : "4"
+        graphviz_edge_default : ""
+        graphviz_graph_default :  ""
+        graphviz_node_title_bgcolor : "#00b2ee"
+        graphviz_node_title_color : "#000000"
+        graphviz_node_bgcolor : "#c6e2ff"
+        graphviz_node_fillcolor : "#ffffff"
+        graphviz_node_title_fontsize : "24"
+        graphviz_node_fontsize : "14"
+        graphviz_node_title_fontname : "Arial"
+        graphviz_node_fontname : "Arial"
+        graphviz_node_shape : "ellipse"
+        graphviz_node_style : "rounded,filled"
+        graphviz_node_defaults : ""
+        graphviz_edge_colorscheme : "reds9"
+        company_name : "storm"
+        short_id : "st"
+        formatGeneratedFiles : "false"
+        UiFeatureEmbeddedInIFrame : "false"

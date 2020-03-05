@@ -1,0 +1,19 @@
+<html>
+<script src="../scripts/lodash.min.js"></script>
+<script src="../scripts/dagre.min.js"></script>
+<script src="../scripts/zepto.min.js"></script>
+<script src="../scripts/nomnoml.js"></script>
+<!-- http://www.nomnoml.com/ -->
+<body>
+	<canvas id="target-canvas"></canvas>
+	<script>
+    var canvas = document.getElementById('target-canvas');
+    var source = "";
+    
+    {uml.sourcedefinition}
+    
+    console.log(source);
+    nomnoml.draw(canvas, source);
+</script>
+</body>
+</html>

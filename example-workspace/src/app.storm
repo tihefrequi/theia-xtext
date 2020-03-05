@@ -3,9 +3,9 @@
         
         servicegroup backend "Simple Theia SG" persistencePrefix ST_ entities ImageCollection
 
-        app ui "Simple Theia Ui App" default servicegroup backend {
+        app ui "Simple Theia Ui App" default servicegroup backend  {
 
-            ui Administration "Simple Theia Ui App - Administration" dashboard  {
+            ui Administration "Simple Theia Ui App - Administration" dashboard defaultAppUI  {
                 .Launchpad {
                     area Admin "Admin Apps" {
                         SearchImageCollection 
@@ -31,38 +31,6 @@
                 .Dialog{
                     Name
                 }
-            }
-
-            ui ShowPerson entity Person for read{
-                .Dialog{
-                    Name
-                    Pid
-                }
-            }
-
-            ui ShowSome  entity Hund for read{
-                .Documents{
-                    Name
-                }
-            }
-
-            ui ShowTheError entity Lexer for read{
-                .Tabs{
-
-                }
-            }
-
-            ui ShowMeError entity my.theia.example.project.ImageCollection for read {
-                .Documents{
-                    ImageCollectionId
-                }
-            }
-            
-            ui shwrrr entity PleaseThrowTheError for read {
-                .Dialog{
-                    
-                }
-
             }
         }
     }

@@ -11,75 +11,28 @@ package my.theia.example.project {
  	  
  	 role THEIA_EXAMPLE_ADMIN "Has all rights to administer every aspect of the Document Store" 
  	 
+    entity Test42 fields{
+        PrimaryKey : Key
+    }
+
+      entity Oa fields {
+          aid : Key
+      }
+
  	 entity ImageCollection fields { 
- 		 ImageCollectionId : Key 
+ 		 ImageCollectionId : Association [1..*] reference Image
  		 Name : String ( 40 ) @ UI.Required @ ENTITY.ReferenceKey 
  		 Description : String ( 400 ) @ UI.Required @ Control.WebContentEditor 
  	 }
 
     entity Image fields { 
  		 ImageId : Key 
- 		 Name : String ( 40 ) @ UI.Required @ ENTITY.ReferenceKey 
+ 		 Name : String ( 40 ) @UI.Required @ENTITY.ReferenceKey 
  	}
 
     entity Person fields{
         Pid : Key
         Name : String (20) @UI.Required @ENTITY.ReferenceKey
      }
-
-     entity Haus fields{
-         Name : Key
-         Next : Association reference Image
-     }
-
-     
-     entity Katze fields{
-         Name : Key
-         Next : Association reference Katze
-     
-     } 
-
-    entity Hund fields{
-         Name : Key
-         Next : Association reference Haus
-     }
-
-    entity NewCrossRefsszzz fields{
-        Id: Integer
-        CField :  String
-        CField3: Boolean
-        CField4: Byte
-        TESTTESTTEST : String
-    }
-
-    entity Lexer fields{
-        Name : String
-        Id : Key
-    }
-
-    entity Person2 fields{
-        id:Key
-        Name : String
-    }
-
-    entity PleaseThrowTheError fields{
-        why : String
-        is : String 
-        it : String
-        Name : String
-    }
-
-    entity Why fields{
-        thatsWHY : String
-    }
-
-    entity Resaons fields{
-        Comment : String 
-    }
-    
-
-    entity CantReproduce fields{
-        Orly : Long
-    }
      
 }

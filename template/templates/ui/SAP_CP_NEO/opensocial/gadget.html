@@ -1,0 +1,165 @@
+<div id="appConfigForm" style="display:none;" >
+	<label for="appUrl">Application Url:</label>
+	<input type="text" id="appUrl" placeholder="URL to the application">
+	<button type="button" onclick="saveAppUrl();">Save</button>
+</div>
+<span id="appNotConfiguredMessage" style="display:none;">
+	The application is not configured! Please contact IT administrator!
+</span>
+
+<script>
+
+//...get SAP Jam URL
+const jamBaseUrl = getParameterByName('parent');
+
+// see https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript (need IE11 support!)
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+function saveAppUrl() {
+
+	var appUrl = document.getElementById("appUrl").value,
+		stateToSubmit = wave.getState();
+    
+    stateToSubmit.submitDelta({
+      "appUrl": appUrl
+    });
+    
+	location.reload();
+}
+
+function init() {
+	//...check for owner
+	var userId = null,
+		ownerId = null,
+		isOwner;
+	
+	osapi.people.getOwner().execute(function(data) {
+    	ownerId = data.id;
+    	osapi.people.getViewer().execute(function(data) {
+    		userId = data.id;
+    		if (ownerId != null && userId != null) {
+        		isOwner = (ownerId === userId);
+        		
+    			//...check wave and start the 
+				if (wave && wave.isInWaveContainer()) {
+    				wave.setStateCallback(function() {
+	    				var state = wave.getState();
+	    				if (state) {
+							
+							var appUrl = state.get("appUrl"){gadgetscript.addons.init.vars};
+							    
+							//check the session storage for the new gadget data
+							getGadgetData(function(gadgetData) {
+								{gadgetscript.addons.init.gadgetData}
+								
+								if(!appUrl) {
+									showInitPage(isOwner);
+								} else {
+			    					redirect(appUrl, isOwner{gadgetscript.addons.init.redirect.call});
+								}
+							})
+							
+	    				} else {
+							console.error("No state found in the wave. Something is wrong! Please check SAP Jam configuration.");
+	    				}
+    				});
+				} else {
+					console.error("No wave extension is found or we are not in the wave container! This envirnoment is not supported!");
+				}
+    		}
+    	});
+	});
+}
+
+function getGadgetData(callback) {
+	
+	//..get gadget d
+	gadgets.sapjam.context.get(function(context) {
+	
+		//redirect event
+		if(window.parent) {
+			
+			window.parent.postMessage({
+				command: "getGadgetData",
+				source: location.href,
+				gadget: context.id
+			}, jamBaseUrl);
+			
+			window.addEventListener("message", function (e) {
+				if (e.data && e.data.command) {
+            		if (e.data.command === "getGadgetDataResponse" && e.data.gadget === context.id) {
+            			callback(e.data.data);
+            		}
+				}
+			});
+			
+		} else {
+			console.log("The parent window was not found!");
+			callback({});
+		}
+	});
+	
+}
+
+function showInitPage(isOwner) {
+	if(isOwner) {
+		document.getElementById("appConfigForm").style.display	= "block";
+	} else {
+		document.getElementById("appNotConfiguredMessage").style.display = "block";
+	}
+}
+	
+function redirect(appUrl{gadgetscript.addons.redirect.signature}) {
+	
+	//get prefs
+	var prefs = new gadgets.Prefs(),
+		queryStr = "";
+	
+	{gadgetscript.addons.redirect.body}
+	
+	//...get language
+	var lang = "en"; //Default 
+	if (prefs.getLang()) {
+		lang = prefs.getLang();
+	}
+	queryStr = (queryStr === "" ? "?": queryStr+"&"); 
+	queryStr +="sap-ui-language="+lang;
+	
+	//..get gadget id and redirect
+	gadgets.sapjam.context.get(function(context) {
+		
+		queryStr = (queryStr === "" ? "?": queryStr+"&"); 
+		queryStr +="jamGadgetId="+context.id;
+		
+		var toUrl = appUrl + queryStr;
+		if(appUrl) {
+			var hash = appUrl.indexOf("#");
+			if(hash >= 0) {
+				toUrl = appUrl.substring(0, appUrl.indexOf("#")) + queryStr + appUrl.substring(appUrl.indexOf("#"));
+			}
+		}
+		
+		//redirect event
+		if(window.parent) {
+			window.parent.postMessage({
+				command: "redirectIframe",
+				from: location.href,
+				to: toUrl
+			}, jamBaseUrl);
+		}
+	})
+	
+	
+}
+
+gadgets.util.registerOnLoadHandler(init);
+	
+</script>

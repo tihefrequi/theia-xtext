@@ -41,7 +41,7 @@ class DSLContribution extends BaseLanguageServerContribution {
             this.forward(clientConnection, serverConnection)
             socket.connect(socketPort)
         } else {
-            const jar = path.resolve(__dirname, '../../build/dsl-language-server.jar');
+            const jar = path.resolve(__dirname, './myls/dsl-language-server.jar');
     
             const command = 'java';
             const args: string[] = [

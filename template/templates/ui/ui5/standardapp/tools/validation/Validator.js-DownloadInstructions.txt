@@ -1,0 +1,86 @@
+2017-03-29
+version taken with last change on 3 Feb 2017 from url https://github.com/qualiture/ui5-validator/blob/master/Validator.js
+
+Fix1:
+====
+Replace
+	nl.qualiture.plunk.demo.utils
+with
+	{app.namespace}
+	
+
+Fix2:
+====
+Add
+       oControl instanceof sap.m.IconTabFilter /* MODIFICATION storm1: to allow deep dive into TabContainer */ || 
+	
+Fix3:
+====
+Add
+                    // MODIFICATION storm 2:
+                    // smartforms have no aggregations, but inner controls, that can be checked
+                    if (oControl.getInnerControls) {
+                        aControlAggregation = oControl.getInnerControls();
+                        for (i = 0; i < aControlAggregation.length; i += 1) {
+                            this._validate(aControlAggregation[i]);
+                        }
+                    }
+                    
+Fix4:
+                                // MODIFICATION 3: Mark Tab Container Icons red as well, when errors occur
+                                /* Detect, if current Field is inside a Tab of a Tab Container, then mark tab Container Icon red */
+                                // Detect if any Parent if a IconTabFilter 
+                                var oTabParent=oControl.oParent;
+                                while (oTabParent !== null && !(oTabParent instanceof sap.m.IconTabFilter)) {
+                                    oTabParent=oTabParent.oParent;
+                                }
+                                // If we are in a IconTab Filter, we mark the Icon Tab Filter Icon negative as well
+                                if (oTabParent !== null) {
+    								oTabParent.setIconColor(sap.ui.core.IconColor.Negative)
+Fix5:                                }
+    /**
+     * MODIFICATION 4: new function:
+     * 
+     * Recursively resets all additional Error Indicators like Tab Icon Colors
+     * @param {(sap.ui.core.Control|sap.ui.layout.form.FormContainer|sap.ui.layout.form.FormElement)} oControl - The control or element to be validated.
+     */
+    Validator.prototype._resetAdditionalErrorIndicators = function (oControl) {
+    
+Fix6:
+    // MODIFICATION 5: call _resetAdditionalErrorIndicators()
+    this._resetAdditionalErrorIndicators();
+
+Fix7:
+      MODIFICATION 6: add this method	 
+	Validator.prototype.validateSingleControl = function (oControl, sBindingPath) { ...
+	
+Fix8:
+	Add "selectedKeys" to both places with aValidateProperties
+	Add "headerContainer" to both places with aPossibleAggregations
+Fix9:
+	Add coding to try/catch
+	if (oControl.getParent() && oControl.getParent().getInnerControls() ) {
+    
+Fix10: (needs also new )
+        // MODIFICATION storm 7:
+        // Additional Checks for dynamic (XML Expression based) required fields and smartControls (they have a 'mandatory' parameter (dynamic) and include a control below.)
+        if (oControl.getProperty("required") || (oControl.getParent() && oControl.getParent().getInnerControls && oControl.getParent().getProperty("mandatory"))) {
+			if (!oInternalValue) { // no Value given, but the field is mandatory/required
+				sMessageText="Please enter a value";
+				if (oType.oFormatOptions && oType.oFormatOptions.mandatoryMessageKey) {
+					sMessageText = sap.ui.getCore().getLibraryResourceBundle().getText(oControlBinding.getType().oFormatOptions.mandatoryMessageKey);	                                				
+				}
+				throw new ValidateException(sMessageText);
+			}
+        }
+Fix11 (for Fix10 we need two variables):
+        sMessageText		  = "",
+        oType				  = null,
+Fix12 
+	we set oType and replace the original coding
+	
+    // check if a data type exists (which may have validation constraints)
+    oType = oControl.getBinding(aValidateProperties[i]).getType();
+    if (oType) {
+	
+        

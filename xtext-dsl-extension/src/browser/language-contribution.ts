@@ -54,11 +54,11 @@ export function registerDSL() {
         // defaultToken: 'invalid',
 
         keywords: [
-            'protocol', 'type', 'request', 'notification', 'extends'
+            'entity', 'role', 'servicegroup', 'ui', 'app', 'import', 'fields', 'package', 'Association', 'reference'
         ],
 
         typeKeywords: [
-            'boolean', 'number', 'string'
+            'Key', 'Boolean', 'Number', 'String'
         ],
 
         operators: [

@@ -1,0 +1,16 @@
+<?xml
+ version="1.0"
+ encoding="utf-8"?>
+<Module
+ specificationVersion='2'>
+   <ModulePrefs
+    title="{escapeXmlAttrValue(app.title)} - Open Social Gadget {ui.title.addon}"
+    author="{escapeXmlAttrValue(config.company_name)}"
+    description="Used to embed the App {app.id} in a Open Social Container e.g. SAP Jam">
+    	<Require feature="wave"/>
+    	<Require feature="osapi"/>
+   </ModulePrefs>
+   <Content
+    type="html"
+    href="gadget.html" />
+</Module>
